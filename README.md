@@ -4,6 +4,9 @@ A theme-aware sticky-modifier indicator for the Omarchy Quattro bar. It listens
 to `keyd` layer changes and displays badges for latched Control, Alt, Shift, and
 Super layers. Badges remain hidden while no sticky layer is active.
 
+Double-tapping a configured modifier latches it until it is tapped again; the
+badge remains visible for the full latched state.
+
 ## Requirements
 
 - Omarchy Quattro

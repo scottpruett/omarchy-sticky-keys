@@ -17,7 +17,7 @@ BarWidget {
   ]
   readonly property bool hasActiveLayer: {
     for (var i = 0; i < modifiers.length; i++)
-      if (activeLayers[modifiers[i].layer] === true) return true
+      if ((activeLayers[modifiers[i].layer] || 0) > 0) return true
     return false
   }
   readonly property color badgeBackground: bar ? bar.urgent : "#e06c75"
@@ -25,10 +25,11 @@ BarWidget {
     ? ("themeContrastForeground" in bar ? bar.themeContrastForeground : bar.background)
     : "#111111"
 
-  function setLayer(layer, active) {
+  function adjustLayerDepth(layer, delta) {
     var next = {}
     for (var name in activeLayers) next[name] = activeLayers[name]
-    if (active) next[layer] = true
+    var depth = Math.max(0, (next[layer] || 0) + delta)
+    if (depth > 0) next[layer] = depth
     else delete next[layer]
     activeLayers = next
   }
@@ -40,14 +41,14 @@ BarWidget {
     var state = line.charAt(0)
     var layer = line.slice(1)
     if (state === "/") activeLayers = ({})
-    else if (state === "+") setLayer(layer, true)
-    else if (state === "-") setLayer(layer, false)
+    else if (state === "+") adjustLayerDepth(layer, 1)
+    else if (state === "-") adjustLayerDepth(layer, -1)
   }
 
   function tooltipText() {
     var names = []
     for (var i = 0; i < modifiers.length; i++) {
-      if (activeLayers[modifiers[i].layer] === true)
+      if ((activeLayers[modifiers[i].layer] || 0) > 0)
         names.push(modifiers[i].label)
     }
     return names.length > 0
@@ -89,7 +90,7 @@ BarWidget {
 
       Rectangle {
         required property var modelData
-        readonly property bool active: root.activeLayers[modelData.layer] === true
+        readonly property bool active: (root.activeLayers[modelData.layer] || 0) > 0
         visible: active
         width: active ? label.implicitWidth + 10 : 0
         height: 18

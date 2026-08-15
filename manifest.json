@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "io.github.scottpruett.sticky-keys",
   "name": "Sticky Keys Indicator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Scott Pruett",
   "license": "MIT",
   "description": "Theme-aware bar badges for latched keyd modifier layers.",
