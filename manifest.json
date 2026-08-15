@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.scottpruett.sticky-keys",
+  "name": "Sticky Keys Indicator",
+  "version": "1.0.0",
+  "author": "Scott Pruett",
+  "license": "MIT",
+  "description": "Theme-aware bar badges for latched keyd modifier layers.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Sticky Keys Indicator",
+    "category": "Accessibility",
+    "allowMultiple": false,
+    "defaultSection": "center"
+  }
+}
